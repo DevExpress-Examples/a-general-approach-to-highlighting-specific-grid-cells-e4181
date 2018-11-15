@@ -1,3 +1,14 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [BindingToColorConverter.cs](./CS/WpfApplication/ColorHelper/BindingToColorConverter.cs) (VB: [BindingToColorConverter.vb](./VB/WpfApplication/ColorHelper/BindingToColorConverter.vb))
+* [CellsHightlightHelper.cs](./CS/WpfApplication/ColorHelper/CellsHightlightHelper.cs) (VB: [CellsHightlightHelper.vb](./VB/WpfApplication/ColorHelper/CellsHightlightHelper.vb))
+* [HighlightedGridCell.cs](./CS/WpfApplication/ColorHelper/HighlightedGridCell.cs) (VB: [HighlightedGridCell.vb](./VB/WpfApplication/ColorHelper/HighlightedGridCell.vb))
+* [MainWindow.xaml](./CS/WpfApplication/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/WpfApplication/MainWindow.xaml))
+* [MainWindow.xaml.cs](./CS/WpfApplication/MainWindow.xaml.cs) (VB: [MainWindow.xaml](./VB/WpfApplication/MainWindow.xaml))
+* [DataHelper.cs](./CS/WpfApplication/Model/DataHelper.cs) (VB: [DataHelper.vb](./VB/WpfApplication/Model/DataHelper.vb))
+* [ViewModel.cs](./CS/WpfApplication/ViewModel/ViewModel.cs) (VB: [ViewModel.vb](./VB/WpfApplication/ViewModel/ViewModel.vb))
+<!-- default file list end -->
 # A general approach to highlighting specific grid cells
 
 
