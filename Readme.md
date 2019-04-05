@@ -5,7 +5,7 @@
 * [CellsHightlightHelper.cs](./CS/WpfApplication/ColorHelper/CellsHightlightHelper.cs) (VB: [CellsHightlightHelper.vb](./VB/WpfApplication/ColorHelper/CellsHightlightHelper.vb))
 * [HighlightedGridCell.cs](./CS/WpfApplication/ColorHelper/HighlightedGridCell.cs) (VB: [HighlightedGridCell.vb](./VB/WpfApplication/ColorHelper/HighlightedGridCell.vb))
 * [MainWindow.xaml](./CS/WpfApplication/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/WpfApplication/MainWindow.xaml))
-* [MainWindow.xaml.cs](./CS/WpfApplication/MainWindow.xaml.cs) (VB: [MainWindow.xaml](./VB/WpfApplication/MainWindow.xaml))
+* [MainWindow.xaml.cs](./CS/WpfApplication/MainWindow.xaml.cs) (VB: [MainWindow.xaml.vb](./VB/WpfApplication/MainWindow.xaml.vb))
 * [DataHelper.cs](./CS/WpfApplication/Model/DataHelper.cs) (VB: [DataHelper.vb](./VB/WpfApplication/Model/DataHelper.vb))
 * [ViewModel.cs](./CS/WpfApplication/ViewModel/ViewModel.cs) (VB: [ViewModel.vb](./VB/WpfApplication/ViewModel/ViewModel.vb))
 <!-- default file list end -->
