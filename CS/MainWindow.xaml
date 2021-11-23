@@ -26,7 +26,7 @@
             <dxg:GridControl.View>
                 <dxg:TableView Name="tableView1">
                     <dxg:TableView.CellStyle>
-                        <Style BasedOn="{StaticResource {dxgt:GridRowThemeKey ResourceKey=LightweightCellStyle}}" TargetType="dxg:LightweightCellEditor">
+                        <Style TargetType="dxg:LightweightCellEditor">
                             <Style.Resources>
                                 <local:BindingToColorConverter x:Key="converter" />
                             </Style.Resources>
