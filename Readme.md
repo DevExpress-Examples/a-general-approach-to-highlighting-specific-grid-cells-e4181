@@ -15,7 +15,7 @@
 * [DataHelper.cs](./CS/Model/DataHelper.cs) (VB: [DataHelper.vb](./VB/Model/DataHelper.vb))
 * [ViewModel.cs](./CS/ViewModel/ViewModel.cs) (VB: [ViewModel.vb](./VB/ViewModel/ViewModel.vb))
 <!-- default file list end -->
-# A general approach to highlighting specific grid cells
+# WPF Grid - Highlight specific cells
 
 
 <p>To change a specific grid cell color, use the solution from the <a href="http://documentation.devexpress.com/#WPF/CustomDocument6762">Styles and Templates Overview</a> article.</p>
