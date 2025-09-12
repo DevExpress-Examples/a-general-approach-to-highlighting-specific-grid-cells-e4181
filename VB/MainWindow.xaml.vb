@@ -12,14 +12,14 @@ Namespace WpfApplication
             InitializeComponent()
             Dim cellsToHiglight As New ObservableCollection(Of HighlightedGridCell)()
             cellsToHiglight.Add(New HighlightedGridCell(gridControl1.GetRow(0), gridControl1.Columns("ID"), Colors.Red))
-            CellsHightlightHelper.SetCellsToHighlight(gridControl1, cellsToHiglight)
+            CellsHighlightHelper.SetCellsToHighlight(gridControl1, cellsToHiglight)
         End Sub
 
         Private Sub button1_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
             Dim cellsToHiglight As New ObservableCollection(Of HighlightedGridCell)()
             cellsToHiglight.Add(New HighlightedGridCell(gridControl1.GetRow(1), gridControl1.Columns("Name"), Colors.Yellow))
             cellsToHiglight.Add(New HighlightedGridCell(gridControl1.GetRow(1), gridControl1.Columns("Date"), Colors.Orange))
-            CellsHightlightHelper.SetCellsToHighlight(gridControl1, cellsToHiglight)
+            CellsHighlightHelper.SetCellsToHighlight(gridControl1, cellsToHiglight)
         End Sub
     End Class
 End Namespace
