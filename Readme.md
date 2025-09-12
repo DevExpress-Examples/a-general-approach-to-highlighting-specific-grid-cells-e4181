@@ -74,7 +74,7 @@ private void button1_Click(object sender, RoutedEventArgs e) {
 
 ### Cell Background
 
-Once the collection is defined in the `CellsToHighlight` attached property, this collection can be used in each cell style. For this, define a `MultiBinding` in a custom `CellStyle`. The `MultiBinding` uses three inputs:
+Once the collection is defined in the `CellsToHighlight` attached property, this collection can be used at the cell style level. For this, define a `MultiBinding` in a custom `CellStyle`. The `MultiBinding` uses three inputs:
 
 * The attached collection of highlighted cells
 
