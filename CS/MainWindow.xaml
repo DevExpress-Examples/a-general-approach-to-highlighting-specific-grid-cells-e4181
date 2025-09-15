@@ -14,7 +14,7 @@
 
     <DockPanel>
         <Button Click="button1_Click"
-                Content="Button"
+                Content="Highlight Cells"
                 DockPanel.Dock="Bottom"
                 Name="button1" />
         <dxg:GridControl ItemsSource="{Binding DataSource}" Name="gridControl1">

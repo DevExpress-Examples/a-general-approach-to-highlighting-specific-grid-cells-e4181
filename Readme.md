@@ -7,23 +7,17 @@
 
 # WPF Grid - Highlight Specific Cells
 
-The [`GridControl`](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridCell.GridControl) allows you to change a cell color based on underlying data source. For this, you can define a custom [`CellStyle`](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.DataViewBase.CellStyle) with the corresponding bindings:
+This example modifies the background color of specific grid cells. Target cells are defined explicitly by row and column (independent of the underlying data). The example stores target cells in a collection and applies colors through a custom `CellStyle`.
 
-```xaml
-<Style x:Key="customCellStyle" >
-	<Setter Property="Background" Value="{Binding Path=RowData.Row.SomeFieldName, Converter={local:YourConverter}}"/>
-</Style>
-``` 
+Use this technique to highlight arbitrary cells that are not tied to data conditions.
 
-If you need to highlight a cell in a certain column and a certain row without any dependencies on the underlying data, you can store information about target cells in a separate collection and use the information by each cell through the `CellStyle` property. You can target any cell and apply a color at runtime. Use this technique for validation, cross-row checks, or external rules without any column redesign or data model changes.
-
-![Highlight Specific Cells in GridControl](./Images/grid-highlighted-cells.jpg)
+![Highlight Specific Cells in GridControl](./Images/highlighted-cells.jpg)
 
 ## Implementation Details
 
-### Target Cell and Color
+### Define Target Cells
 
-The code example defines the `HighlightedGridCell` type to store color data for a target cell:
+The `HighlightedGridCell` class stores row, column, and color information:
 
 ```csharp
 public class HighlightedGridCell {
@@ -36,7 +30,7 @@ public class HighlightedGridCell {
 }
 ```
 
-### Highlighted Cell Collection
+### Define Highlighted Cells
 
 The code example defines the `CellsToHighlight` attached property of the `ObservableCollection<HighlightedGridCell>` type . This property is attached to the `GridControl` and stores highlighted cells:
 
@@ -72,17 +66,13 @@ private void button1_Click(object sender, RoutedEventArgs e) {
 }
 ```
 
-### Cell Background
+### Apply Cell Style
 
-Once the collection is defined in the `CellsToHighlight` attached property, this collection can be used at the cell style level. For this, define a `MultiBinding` in a custom `CellStyle`. The `MultiBinding` uses three inputs:
+A custom `CellStyle` uses a `MultiBinding` to resolve the background color. The binding passes three values to a color converter:
 
-* The attached collection of highlighted cells
-
-* The current row object
-
-* The current column
-
-Based on these inputs, the converter returns a brush for the corresponding cell:
+- The attached collection of highlighted cells
+- The current row
+- The current column
 
 ```xaml
 <dxg:TableView.CellStyle>
@@ -104,9 +94,9 @@ Based on these inputs, the converter returns a brush for the corresponding cell:
 </dxg:TableView.CellStyle>
 ```
 
-### Color Converter
+### Implement Color Converter
 
-The following code example creates a color converter that receives the `HighlightedGridCell` collection, a row, and a column. If the collection contains a record with target row and column, a new `SolidColorBrush` is created based on the color in that record:
+The converter checks whether a highlighted cell exists for the specified row and column. If the cell exists, the `GetColorToHighlight` method returns a `SolidColorBrush` based on the cell’s color:
 
 ```csharp
 public class BindingToColorConverter : DependencyObject, IMultiValueConverter {
