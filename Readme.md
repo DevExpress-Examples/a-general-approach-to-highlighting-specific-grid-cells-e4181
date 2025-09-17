@@ -7,7 +7,8 @@
 
 # WPF Grid - Highlight Specific Cells
 
-This example modifies the background color of specific grid cells. Target cells are defined explicitly by row and column (independent of the underlying data). The example stores target cells in a collection and applies colors through a custom `CellStyle`.
+This example modifies the background color of specific grid cells. Target cells are defined explicitly by rows and columns (independent of the underlying data). The example stores target cells in a collection and applies colors through a custom `CellStyle`.
+
 
 Use this technique to highlight arbitrary cells that are not tied to data conditions.
 
