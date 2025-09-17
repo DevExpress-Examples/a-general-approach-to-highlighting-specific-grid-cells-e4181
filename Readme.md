@@ -129,7 +129,7 @@ public class BindingToColorConverter : DependencyObject, IMultiValueConverter {
 * [DataHelper.cs](./CS/Model/DataHelper.cs) (VB: [DataHelper.vb](./VB/Model/DataHelper.vb))
 * [ViewModel.cs](./CS/ViewModel/ViewModel.cs) (VB: [ViewModel.vb](./VB/ViewModel/ViewModel.vb))
 * [BindingToColorConverter.cs](./CS/ColorHelper/BindingToColorConverter.cs) (VB: [BindingToColorConverter.vb](./VB/ColorHelper/BindingToColorConverter.vb))
-* [CellsHighlightHelper.cs](./CS/ColorHelper/CellsHighlightHelper.cs) (VB: [CellsHighlightHelper.vb](./VB/ColorHelper/CellsHighlightHelper.vb))
+* [CellsHighlightHelper.cs](./CS/ColorHelper/CellsHighlightHelper.cs) (VB: [CellsHighlightHelper.vb](./VB/ColorHelper/CellsHightlightHelper.vb)) 
 * [HighlightedGridCell.cs](./CS/ColorHelper/HighlightedGridCell.cs) (VB: [HighlightedGridCell.vb](./VB/ColorHelper/HighlightedGridCell.vb))
 
 ## Documentation
@@ -153,5 +153,6 @@ public class BindingToColorConverter : DependencyObject, IMultiValueConverter {
 
 (you will be redirected to DevExpress.com to submit your response)
 <!-- feedback end -->
+
 
 
