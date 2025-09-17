@@ -33,7 +33,7 @@
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <MultiBinding Converter="{StaticResource converter}">
-                                        <Binding Path="(local:CellsHightlightHelper.CellsToHighlight)" RelativeSource="{RelativeSource AncestorType=dxg:GridControl}" />
+                                        <Binding Path="(local:CellsHighlightHelper.CellsToHighlight)" RelativeSource="{RelativeSource AncestorType=dxg:GridControl}" />
                                         <Binding Path="RowData.Row" />
                                         <Binding Path="Column" />
                                     </MultiBinding>

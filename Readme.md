@@ -4,44 +4,147 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-<!-- default file list -->
-*Files to look at*:
 
-* [BindingToColorConverter.cs](./CS/ColorHelper/BindingToColorConverter.cs) (VB: [BindingToColorConverter.vb](./VB/ColorHelper/BindingToColorConverter.vb))
-* [CellsHightlightHelper.cs](./CS/ColorHelper/CellsHightlightHelper.cs) (VB: [CellsHightlightHelper.vb](./VB/ColorHelper/CellsHightlightHelper.vb))
-* [HighlightedGridCell.cs](./CS/ColorHelper/HighlightedGridCell.cs) (VB: [HighlightedGridCell.vb](./VB/ColorHelper/HighlightedGridCell.vb))
-* **[MainWindow.xaml](./CS/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/MainWindow.xaml))**
+# WPF Grid - Highlight Specific Cells
+
+This example modifies the background color of specific grid cells. Target cells are defined explicitly by rows and columns (independent of the underlying data). The example stores target cells in a collection and applies colors through a custom `CellStyle`.
+
+
+Use this technique to highlight arbitrary cells that are not tied to data conditions.
+
+![Highlight Specific Cells in GridControl](./Images/highlighted-cells.jpg)
+
+## Implementation Details
+
+### Define Target Cells
+
+The `HighlightedGridCell` class stores row, column, and color information:
+
+```csharp
+public class HighlightedGridCell {
+    public HighlightedGridCell(object row, GridColumn column, Color color) {
+        Row = row; Column = column; Color = color;
+    }
+    public object Row { get; set; }
+    public GridColumn Column { get; set; }
+    public Color Color { get; set; }
+}
+```
+
+### Define Highlighted Cells
+
+The code example defines the `CellsToHighlight` attached property of the `ObservableCollection<HighlightedGridCell>` type . This property is attached to the `GridControl` and stores highlighted cells:
+
+```csharp
+public static class CellsHighlightHelper {
+    public static readonly DependencyProperty CellsToHighlightProperty = DependencyProperty.RegisterAttached(
+		"CellsToHighlight", 
+		typeof(ObservableCollection<HighlightedGridCell>), 
+		typeof(CellsHighlightHelper), null
+	);
+    public static ObservableCollection<HighlightedGridCell> GetCellsToHighlight(DependencyObject target) {
+        return (ObservableCollection<HighlightedGridCell>)target.GetValue(CellsToHighlightProperty);
+    }
+    public static void SetCellsToHighlight(GridControl target, ObservableCollection<HighlightedGridCell> value) {
+        target.SetValue(CellsToHighlightProperty, value);
+    }
+}
+```
+
+```csharp
+public MainWindow() {
+	InitializeComponent();
+	ObservableCollection<HighlightedGridCell> cellsToHiglight = new ObservableCollection<HighlightedGridCell>();
+	cellsToHiglight.Add(new HighlightedGridCell(gridControl1.GetRow(0), gridControl1.Columns["ID"], Colors.Red));
+	CellsHighlightHelper.SetCellsToHighlight(gridControl1, cellsToHiglight);
+}
+
+private void button1_Click(object sender, RoutedEventArgs e) {
+	ObservableCollection<HighlightedGridCell> cellsToHiglight = new ObservableCollection<HighlightedGridCell>();
+	cellsToHiglight.Add(new HighlightedGridCell(gridControl1.GetRow(1), gridControl1.Columns["Name"], Colors.Yellow));
+	cellsToHiglight.Add(new HighlightedGridCell(gridControl1.GetRow(1), gridControl1.Columns["Date"], Colors.Orange));
+	CellsHighlightHelper.SetCellsToHighlight(gridControl1, cellsToHiglight);
+}
+```
+
+### Apply Cell Style
+
+A custom `CellStyle` uses a `MultiBinding` to resolve the background color. The binding passes three values to a color converter:
+
+- The attached collection of highlighted cells
+- The current row
+- The current column
+
+```xaml
+<dxg:TableView.CellStyle>
+    <Style TargetType="dxg:LightweightCellEditor">
+        <Style.Resources>
+            <local:BindingToColorConverter x:Key="converter" />
+        </Style.Resources>
+        <Setter Property="Background">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource converter}">
+                    <Binding Path="(local:CellsHighlightHelper.CellsToHighlight)" 
+                             RelativeSource="{RelativeSource AncestorType=dxg:GridControl}" />
+                    <Binding Path="RowData.Row" />
+                    <Binding Path="Column" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</dxg:TableView.CellStyle>
+```
+
+### Implement Color Converter
+
+The converter checks whether a highlighted cell exists for the specified row and column. If the cell exists, the `GetColorToHighlight` method returns a `SolidColorBrush` based on the cell’s color:
+
+```csharp
+public class BindingToColorConverter : DependencyObject, IMultiValueConverter {
+	object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+		ObservableCollection<HighlightedGridCell> cellsToHighlight = values[0] as ObservableCollection<HighlightedGridCell>;
+		object row = values[1];
+		object column = values[2];
+		return GetColorToHighlight(row, column, cellsToHighlight);
+	}
+	object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture) {
+		throw new NotImplementedException();
+	}
+	private object GetColorToHighlight(object row, object column, ObservableCollection<HighlightedGridCell> cellsToHighlight) {
+		if (row == null || column == null || cellsToHighlight == null)
+			return null;
+		foreach (HighlightedGridCell cell in cellsToHighlight) {
+			if (cell.Column == column && cell.Row == row)
+				return new SolidColorBrush(cell.Color);
+		}
+		return null;
+	}
+}
+```
+
+## Files to Review
+
+* [MainWindow.xaml](./CS/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/MainWindow.xaml))
 * [MainWindow.xaml.cs](./CS/MainWindow.xaml.cs) (VB: [MainWindow.xaml.vb](./VB/MainWindow.xaml.vb))
 * [DataHelper.cs](./CS/Model/DataHelper.cs) (VB: [DataHelper.vb](./VB/Model/DataHelper.vb))
 * [ViewModel.cs](./CS/ViewModel/ViewModel.cs) (VB: [ViewModel.vb](./VB/ViewModel/ViewModel.vb))
-<!-- default file list end -->
-# WPF Grid - Highlight specific cells
+* [BindingToColorConverter.cs](./CS/ColorHelper/BindingToColorConverter.cs) (VB: [BindingToColorConverter.vb](./VB/ColorHelper/BindingToColorConverter.vb))
+* [CellsHighlightHelper.cs](./CS/ColorHelper/CellsHighlightHelper.cs) (VB: [CellsHighlightHelper.vb](./VB/ColorHelper/CellsHighlightHelper.vb))
+* [HighlightedGridCell.cs](./CS/ColorHelper/HighlightedGridCell.cs) (VB: [HighlightedGridCell.vb](./VB/ColorHelper/HighlightedGridCell.vb))
 
+## Documentation
 
-<p>To change a specific grid cell color, use the solution from the <a href="http://documentation.devexpress.com/#WPF/CustomDocument6762">Styles and Templates Overview</a> article.</p>
-<br />
-<p>In case of a simple scenario, when you need to highlight a cell based on its value or some other property that is available in the current row object, just specify a correct binding. For example:</p>
+* [GridControl](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.GridCell.GridControl)
+* [TableView](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.TableView)
+* [Columns](https://docs.devexpress.com/WPF/6093/controls-and-libraries/data-grid/grid-view-data-layout/columns-and-card-fields)
+* [CellStyle](https://docs.devexpress.com/WPF/DevExpress.Xpf.Grid.DataViewBase.CellStyle)
 
+## More Examples
 
-```xaml
-<Style x:Key="customCellStyle" BasedOn="{StaticResource {dxgt:GridRowThemeKey ResourceKey=CellStyle}}" TargetType="dxg:CellContentPresenter">
-    <Setter Property="Background" Value="{Binding Path=RowData.Row.SomeFieldName, Converter={local:YourConverter}}"/>
-</Style>
-
-Optimized mode
-<Style x:Key="customCellStyle" BasedOn="{StaticResource {dxgt:GridRowThemeKey ResourceKey=LightweightCellStyle}}" TargetType="dxg:LightweightCellEditor">
-    <Setter Property="Background" Value="{Binding Path=RowData.Row.SomeFieldName, Converter={local:YourConverter}}"/>
-</Style>
-```
-
-
-<p>However, if your cells should be colored based on complex logic, then a simple binding won't help you. In this case, it is better to create an attached property and bind to this property. Then, update this property when it is necessary.</p>
-<p>For example, if a specific row color depends on other rows, handle data changes in your datasource and update your attached property based on these changes.</p>
-<p>This example demonstrates the main idea of how to implement this functionality.</p>
-<p><strong>S</strong><strong>ee al</strong><strong>so</strong><strong>:<br /> </strong><br /> <a href="https://www.devexpress.com/Support/Center/p/E1297">How to change background color for modified cells</a></p>
-
-<br/>
-
+* [WPF Data Grid — Specify Custom Content for Column Chooser Headers](https://github.com/DevExpress-Examples/wpf-data-grid-custom-content-for-column-chooser-headers)
+* [WPF Data Grid — Bind to Dynamic Data](https://github.com/DevExpress-Examples/wpf-bind-gridcontrol-to-dynamic-data)
+* [Implement CRUD Operations in the WPF Data Grid](https://github.com/DevExpress-Examples/wpf-data-grid-implement-crud-operations)
+* [WPF Grid — Resize Rows Using a Splitter](https://github.com/sergepilipchuk/wpf-grid-resize-rows-using-splitter)
 
 <!-- feedback -->
 ## Does this example address your development requirements/objectives?

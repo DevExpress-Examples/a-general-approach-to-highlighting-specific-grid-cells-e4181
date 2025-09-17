@@ -103,7 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ColorHelper\CellsHightlightHelper.cs" />
+    <Compile Include="ColorHelper\CellsHighlightHelper.cs" />
     <Compile Include="ColorHelper\HighlightedGridCell.cs" />
     <Compile Include="ColorHelper\BindingToColorConverter.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />

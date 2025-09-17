@@ -105,7 +105,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ColorHelper\CellsHightlightHelper.vb" />
+    <Compile Include="ColorHelper\CellsHighlightHelper.vb" />
     <Compile Include="ColorHelper\HighlightedGridCell.vb" />
     <Compile Include="ColorHelper\BindingToColorConverter.vb" />
     <Compile Include="ViewModel\ViewModel.vb" />
