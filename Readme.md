@@ -12,7 +12,7 @@ This example modifies the background color of specific grid cells. Target cells 
 
 Use this technique to highlight arbitrary cells that are not tied to data conditions.
 
-![Highlight Specific Cells in GridControl](./Images/highlighted-cells.jpg)
+![Highlight Specific Cells in GridControl](./Images/highlighted_cells.jpg)
 
 ## Implementation Details
 
@@ -153,3 +153,4 @@ public class BindingToColorConverter : DependencyObject, IMultiValueConverter {
 
 (you will be redirected to DevExpress.com to submit your response)
 <!-- feedback end -->
+
